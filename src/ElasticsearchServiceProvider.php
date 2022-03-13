@@ -1,13 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Matchory\Elasticsearch;
 
 use Elasticsearch\ClientBuilder as ElasticBuilder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -188,9 +185,10 @@ class ElasticsearchServiceProvider extends ServiceProvider
     {
         // Bind the connection manager for the resolver interface as a singleton
         // on the container, so we have a single instance at all times
+
         $this->app->singleton(
             ConnectionResolverInterface::class,
-            function (Application $app) {
+            function ($app) {
                 $factory = $app->make(ClientFactoryInterface::class);
 
                 $cache = $app->bound(CacheInterface::class)
@@ -229,7 +227,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
         // Bind the default connection separately
         $this->app->singleton(
             ConnectionInterface::class,
-            function (Application $app) {
+            function ($app) {
                 return $app
                     ->make(ConnectionResolverInterface::class)
                     ->connection();
