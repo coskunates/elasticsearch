@@ -57,7 +57,6 @@ class ScoutEngine extends Engine
                 'delete' => [
                     '_id' => $model->getKey(),
                     '_index' => $this->index,
-                    '_type' => $model->searchableAs(),
                 ],
             ];
         });
@@ -197,7 +196,6 @@ class ScoutEngine extends Engine
                 'update' => [
                     '_id' => $model->getKey(),
                     '_index' => $this->index,
-                    '_type' => $model->searchableAs(),
                 ],
             ];
 
@@ -223,7 +221,6 @@ class ScoutEngine extends Engine
         /** @noinspection PhpUndefinedMethodInspection */
         $params = [
             'index' => $this->index,
-            'type' => $builder->model->searchableAs(),
             'body' => [
                 'query' => [
                     'bool' => [
